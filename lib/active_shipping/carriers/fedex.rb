@@ -687,7 +687,7 @@ module ActiveShipping
           shipment_events << ShipmentEvent.new(description, zoneless_time, location, description, type_code)
         end
 
-        shipment_events = shipment_events.sort_by { |event| -event }
+        shipment_events = shipment_events.reverse
       end
 
       TrackingResponse.new(

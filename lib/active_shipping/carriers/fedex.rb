@@ -671,7 +671,6 @@ module ActiveShipping
 
         tracking_details.xpath('Events').each do |event|
           address  = event.at('Address')
-          next if address.nil? || address.at('CountryCode').nil?
 
           city     = address.at('City').try(:text)
           state    = address.at('StateOrProvinceCode').try(:text)
@@ -688,7 +687,7 @@ module ActiveShipping
           shipment_events << ShipmentEvent.new(description, zoneless_time, location, description, type_code)
         end
 
-        shipment_events = shipment_events.sort_by(&:time)
+        shipment_events = shipment_events.sort_by { |event| -event }
       end
 
       TrackingResponse.new(
